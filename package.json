@@ -1,0 +1,12 @@
+{
+  "name": "azure-dual-trigger-function",
+  "version": "1.0.0",
+  "description": "Azure Function with two triggers sharing code",
+  "main": "SharedLogic/index.js",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
