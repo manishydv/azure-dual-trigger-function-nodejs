@@ -8,5 +8,5 @@
       "connection": "AzureWebJobsStorage"
     }
   ],
-  "scriptFile": "../SharedLogic/index.js"
+  "scriptFile": "./queueTrigger.js"
 }

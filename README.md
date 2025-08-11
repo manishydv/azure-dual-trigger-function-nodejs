@@ -6,21 +6,28 @@ This project demonstrates an Azure Function setup where two different triggers�
 
 ```
 .
-├── QueueTriggerFunction
-│   └── function.json      // Configuration for the Queue trigger
-├── SharedLogic
-│   └── index.js           // The shared business logic for both triggers
-├── TimerTriggerFunction
-│   └── function.json      // Configuration for the Timer trigger
+├── functions
+│   ├── QueueTriggerFunction
+│   │   ├── function.json
+│   │   └── queueTrigger.js
+│   ├── TimerTriggerFunction
+│   │   ├── function.json
+│   │   └── timerTrigger.js
+│   └── Shared
+│       └── quoteService.js
 ├── .gitignore
 ├── host.json              // Global configuration for the Function App
 ├── local.settings.json    // Local development settings (DO NOT COMMIT)
 └── package.json           // Node.js project dependencies
 ```
 
-- **`SharedLogic/index.js`**: This is the core of the function. It contains the logic that fetches a quote of the day. It inspects the `context.bindings` to determine whether it was triggered by the timer (`myTimer`) or a queue message (`myQueueItem`).
-- **`TimerTriggerFunction/function.json`**: Defines the Timer trigger. By default, it is scheduled to run every day at 6 PM UTC. It points to `../SharedLogic/index.js` as its script file.
-- **`QueueTriggerFunction/function.json`**: Defines the Queue trigger. It listens for new messages on a queue named `js-queue-items`. It also points to the shared logic script.
+- **`functions/Shared/quoteService.js`**: This module contains the shared business logic for fetching a quote of the day.
+- **`functions/QueueTriggerFunction/`**: This directory contains the Azure Function triggered by a queue message.
+    - `function.json`: Defines the bindings for the Queue trigger.
+    - `queueTrigger.js`: The entry point for the function. It calls the shared logic in `quoteService.js`.
+- **`functions/TimerTriggerFunction/`**: This directory contains the Azure Function triggered by a timer.
+    - `function.json`: Defines the bindings for the Timer trigger, scheduled to run daily.
+    - `timerTrigger.js`: The entry point for the function, which also uses the `quoteService.js`.
 
 ## Permissions and Security
 

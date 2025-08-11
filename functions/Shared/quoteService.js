@@ -1,21 +1,6 @@
-// SharedLogic/index.js
-module.exports = async function (context) {
-    context.log('Shared logic executed.');
+// lib/quoteService.js
+const fetch = require('node-fetch');
 
-    const { myTimer, myQueueItem } = context.bindings;
-
-    if (myTimer) {
-        context.log('Triggered by Timer:', myTimer);
-        return await getTodayQuote(context, "TIMER");
-    }
-
-    if (myQueueItem) {
-        context.log('Triggered by Queue:', myQueueItem);
-        return await getTodayQuote(context, "QUEUE", myQueueItem);
-    }
-};
-
-// Generate the quote of the day on each request
 async function getTodayQuote(context, eventType, queueMessage) {
     context.log(`Fetching quote for event type: ${eventType}`);
 
@@ -43,3 +28,7 @@ async function getTodayQuote(context, eventType, queueMessage) {
         return { error: "Failed to fetch quote." };
     }
 }
+
+module.exports = {
+    getTodayQuote
+};
